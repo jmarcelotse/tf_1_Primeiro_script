@@ -1,4 +1,4 @@
-name: Terraform
+name: CI Pipeline/Terraforme
 
 on:
   push:
@@ -9,8 +9,27 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
   terraform:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - name: Checkout code
