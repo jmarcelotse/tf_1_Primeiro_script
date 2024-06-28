@@ -33,4 +33,5 @@ jobs:
         run: terraform plan -destroy
 
       - name: Terraform Destroy
+        if: github.ref == 'refs/heads/main'
         run: terraform destroy -auto-approve
